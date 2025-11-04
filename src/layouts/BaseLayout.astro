@@ -47,7 +47,7 @@ import '@/styles/fonts.css'
   </head>
   <body class="min-h-screen">
     <div class="mesh-bg mesh-a"></div>
-    <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-bg/60 border-b border-white/10">
+    <header class="sticky top-0 z-40 bg-bg/80 border-b border-white/10">
       <nav class="container flex h-14 items-center justify-between">
         <a href="/" class="font-semibold tracking-tight">Linux Cheatsheet</a>
         <div class="flex items-center gap-3 text-sm text-fg-muted">
@@ -110,8 +110,13 @@ import '@/styles/fonts.css'
       function isModifierKey(e) { return e.metaKey || e.ctrlKey || e.shiftKey || e.altKey }
       function isInternal(a) { return a.origin === location.origin && !a.hasAttribute('download') && !a.target }
       let lastDetailHref = null
+      // If user landed directly on a detail page, remember it for back animation
+      try { const p = location.pathname; if (p.startsWith('/commands/')) lastDetailHref = p } catch {}
 
-      // Cache parsed documents in-memory
+      // Prevent overlapping transitions which can cancel animations
+      let vtLock = false
+
+      // Cache fetched HTML in-memory (parse fresh each navigation)
       const docCache = new Map()
       function parseDoc(html) {
         const doc = new DOMParser().parseFromString(html, 'text/html')
@@ -119,17 +124,25 @@ import '@/styles/fonts.css'
         if (!nextMain) throw new Error('No <main> in target document')
         return { doc, nextMain }
       }
-      function load(url) {
+      async function load(url) {
         let p = docCache.get(url)
         if (!p) {
           p = fetch(url, { headers: { 'X-Requested-With': 'view-transition' }, cache: 'force-cache' })
             .then((res) => { if (!res.ok) throw new Error('Failed to fetch: ' + url); return res.text() })
-            .then((html) => parseDoc(html))
           docCache.set(url, p)
         }
-        return p
+        const html = await p
+        return parseDoc(html)
       }
-      function prefetch(url) { load(url).catch(() => {}) }
+      function prefetch(url) {
+        let p = docCache.get(url)
+        if (!p) {
+          p = fetch(url, { headers: { 'X-Requested-With': 'view-transition' }, cache: 'force-cache' })
+            .then((res) => { if (!res.ok) throw new Error('Failed to fetch: ' + url); return res.text() })
+          docCache.set(url, p)
+        }
+        Promise.resolve(p).catch(() => {})
+      }
       // Prefetch on hover/touch/focus to hide network RTT
       function bindPrefetch(root = document) {
         const want = (t) => {
@@ -143,11 +156,10 @@ import '@/styles/fonts.css'
       bindPrefetch()
 
       async function navigate(url, replace = false, originEl = null, fromHref = null) {
+        if (vtLock) return
         try {
-          // Fallback to full navigation if content takes too long (>450ms)
-          const NAV_TIMEOUT = 450
-          const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('nav-timeout')), NAV_TIMEOUT))
-          const { doc, nextMain } = await Promise.race([load(url), timeout])
+          // Load next document (no aggressive timeout to keep transitions reliable)
+          const { doc, nextMain } = await load(url)
           let nextTarget = doc.querySelector('[data-vt-target="card"]')
           const currentMain = document.querySelector('main')
           if (!currentMain) { location.href = url; return }
@@ -159,11 +171,14 @@ import '@/styles/fonts.css'
             else {
               const s = history.state
               const y = s && typeof s.scrollY === 'number' ? s.scrollY : null
-              if (y !== null) { requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo({ top: y }))) }
+              // Restore scroll immediately within the View Transition update
+              // so the snapshot captures the correct position and avoids title flash.
+              if (y !== null) { window.scrollTo(0, y) }
             }
             document.dispatchEvent(new CustomEvent('vt:page-swapped'))
           }
           if (document.startViewTransition) {
+            vtLock = true
             if (replace && !nextTarget && fromHref) {
               const path = new URL(fromHref, location.origin).pathname
               nextTarget = (doc.querySelector(`a[href="${path}"]`) || doc.querySelector(`a[href$="${path}"]`))
@@ -174,6 +189,7 @@ import '@/styles/fonts.css'
             vt.finished.finally(() => {
               if (originEl) { originEl.style.removeProperty('view-transition-name'); originEl.classList.remove('vt-no-blur') }
               if (nextTarget) nextTarget.style.removeProperty('view-transition-name')
+              vtLock = false
             })
           } else swap()
         } catch { location.href = url }
@@ -186,6 +202,7 @@ import '@/styles/fonts.css'
         if (!a) return
         if (e.button !== 0 || isModifierKey(e)) return
         if (!isInternal(a)) return
+        if (vtLock) return
         e.preventDefault()
         try {
           const prev = history.state && typeof history.state === 'object' ? history.state : {}
@@ -198,6 +215,7 @@ import '@/styles/fonts.css'
         navigate(a.href, false, a)
       })
       window.addEventListener('popstate', () => {
+        if (vtLock) return
         const origin = document.querySelector('[data-vt-target="card"]')
         navigate(location.href, true, origin, lastDetailHref)
       })

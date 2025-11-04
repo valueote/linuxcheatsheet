@@ -39,7 +39,8 @@
 
 @layer components {
   .glass {
-    @apply bg-white/5 dark:bg-white/5 backdrop-blur-md border border-white/10 shadow-soft;
+    /* Remove backdrop blur entirely; keep subtle translucent bg + border */
+    @apply bg-white/5 dark:bg-white/5 border border-white/10 shadow-soft;
   }
 
   .card-hover {
@@ -61,6 +62,11 @@
   ::view-transition-old(card-active) { animation: none; opacity: 0; }
   ::view-transition-new(card-active) { animation: vt-fade-in var(--dur-base) var(--ease-smooth) both; }
 
+  /* Keep root visible (no black flash); disable default animation */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
   
 
   /* Custom dropdown menu for tag filter */
