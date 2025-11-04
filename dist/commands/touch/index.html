@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="dark"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="现代、清晰的 Linux 命令速查"><link rel="icon" href="/favicon.svg"><title>touch - Linux Cheatsheet</title><link rel="stylesheet" href="/_astro/_slug_.DGtNKprG.css"><script type="module">const a=document.getElementById("theme-toggle"),c=document.documentElement,n="theme";function r(t){c.setAttribute("data-theme",t),localStorage.setItem(n,t),a?.setAttribute("aria-checked",String(t==="dark"))}a?.addEventListener("click",()=>{const t=c.getAttribute("data-theme")==="dark"?"light":"dark";r(t)});const e=localStorage.getItem(n);e&&r(e);e||a?.setAttribute("aria-checked",String(c.getAttribute("data-theme")==="dark"));
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark" class="no-js"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="现代、清晰的 Linux 命令速查"><link rel="icon" href="/favicon.svg"><title>touch - Linux Cheatsheet</title><link rel="stylesheet" href="/_astro/_slug_.BHd2EvDI.css"><script type="module">const a=document.getElementById("theme-toggle"),n=document.documentElement,c="theme";function o(t){n.setAttribute("data-theme",t),localStorage.setItem(c,t),a?.setAttribute("aria-checked",String(t==="dark"))}a?.addEventListener("click",()=>{const t=n.getAttribute("data-theme")==="dark"?"light":"dark";o(t)});const e=localStorage.getItem(c);e&&o(e);e||a?.setAttribute("aria-checked",String(n.getAttribute("data-theme")==="dark"));document.documentElement.classList.remove("no-js");
 </script></head> <body class="min-h-screen"> <div class="mesh-bg mesh-a"></div> <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-bg/60 border-b border-white/10"> <nav class="container flex h-14 items-center justify-between"> <a href="/" class="font-semibold tracking-tight">Linux Cheatsheet</a> <div class="flex items-center gap-3 text-sm text-fg-muted"> <button id="theme-toggle" type="button" role="switch" aria-checked="false" class="theme-switch interactive" title="切换主题"> <span class="sr-only">切换主题</span> <span class="switch-track"> <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"> <circle cx="12" cy="12" r="4" fill="currentColor"></circle> <g stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"> <path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l-1.5-1.5M20.5 20.5L19 19M5 19l-1.5 1.5M20.5 3.5L19 5"></path> </g> </svg> <span class="switch-thumb"></span> <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"> <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor"></path> </svg> </span> </button> </div> </nav> </header> <main class="container py-10 lg:py-16">  <article class="max-w-none space-y-6" data-vt-target="card"> <a id="back-link" href="/" aria-label="返回上一页" class="fixed right-4 top-20 z-50 glass rounded-full w-11 h-11 flex items-center justify-center border border-white/10 interactive hover:bg-white/10"> <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" class="opacity-80"> <polyline points="15 6 9 12 15 18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline> </svg> <span class="sr-only">返回</span> </a> <h1 class="mb-2">touch</h1> <p class="lead text-fg-muted">创建空文件或更新文件的时间戳。</p> <div class="mt-8 space-y-6"> <p>用途：快速新建文件或调整文件的修改/访问时间。</p>
 <p>语法：</p>
 <pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFA657">touch</span><span style="color:#E6EDF3"> [选项] 文件...</span></span>
@@ -12,4 +12,229 @@
 <span class="line"></span>
 <span class="line"><span style="color:#8B949E"># 不创建缺失文件，仅在存在时更新时间</span></span>
 <span class="line"><span style="color:#FFA657">touch</span><span style="color:#79C0FF"> -c</span><span style="color:#A5D6FF"> missing.txt</span></span>
-<span class="line"></span></code></pre> </div> </article>  </main> <script type="module" src="/src/scripts/lenis.client.ts"></script> <script type="module" src="/src/scripts/inview.client.ts"></script> <script type="module" src="/src/scripts/viewTransitions.client.ts"></script> <script type="module" src="/src/scripts/backLink.client.ts"></script> <script type="module" src="/src/scripts/homeFilter.client.ts"></script>  </body> </html>
+<span class="line"></span></code></pre> </div> </article>  </main> <!-- Inline client scripts to ensure they run in static builds --> <script>
+      // Reveal on enter
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const hasIO = 'IntersectionObserver' in window
+      function showAll() {
+        document.querySelectorAll('.reveal').forEach((el) => {
+          el.classList.remove('hide')
+          el.classList.add('show')
+        })
+      }
+      function applyHide() {
+        document.querySelectorAll('.reveal:not(.vt-observed)').forEach((el) => el.classList.add('hide'))
+      }
+      if (!reduced && hasIO) {
+        const io = new IntersectionObserver((entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              const el = e.target
+              el.classList.remove('hide')
+              el.classList.add('show')
+              io.unobserve(e.target)
+            }
+          }
+        }, { rootMargin: '0px 0px -10% 0px' })
+        const observe = () => document.querySelectorAll('.reveal:not(.vt-observed)')
+          .forEach((el) => { el.classList.add('vt-observed'); io.observe(el) })
+        applyHide(); observe()
+        document.addEventListener('vt:page-swapped', () => { applyHide(); observe() })
+      } else {
+        showAll(); document.addEventListener('vt:page-swapped', showAll)
+      }
+    </script> <script>
+      // Minimal cross-page View Transitions using the native API
+      function isModifierKey(e) { return e.metaKey || e.ctrlKey || e.shiftKey || e.altKey }
+      function isInternal(a) { return a.origin === location.origin && !a.hasAttribute('download') && !a.target }
+      let lastDetailHref = null
+      async function load(url) {
+        const res = await fetch(url, { headers: { 'X-Requested-With': 'view-transition' } })
+        if (!res.ok) throw new Error('Failed to fetch: ' + url)
+        const html = await res.text()
+        const doc = new DOMParser().parseFromString(html, 'text/html')
+        const nextMain = doc.querySelector('main')
+        if (!nextMain) throw new Error('No <main> in target document')
+        return { doc, nextMain }
+      }
+      async function navigate(url, replace = false, originEl = null, fromHref = null) {
+        try {
+          const { doc, nextMain } = await load(url)
+          let nextTarget = doc.querySelector('[data-vt-target="card"]')
+          const currentMain = document.querySelector('main')
+          if (!currentMain) { location.href = url; return }
+          const swap = () => {
+            currentMain.replaceWith(nextMain)
+            document.title = doc.title
+            if (!replace) history.pushState({}, '', url)
+            if (!replace) { window.scrollTo({ top: 0 }) }
+            else {
+              const s = history.state
+              const y = s && typeof s.scrollY === 'number' ? s.scrollY : null
+              if (y !== null) { requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo({ top: y }))) }
+            }
+            document.dispatchEvent(new CustomEvent('vt:page-swapped'))
+          }
+          if (document.startViewTransition) {
+            if (replace && !nextTarget && fromHref) {
+              const path = new URL(fromHref, location.origin).pathname
+              nextTarget = (doc.querySelector(`a[href="${path}"]`) || doc.querySelector(`a[href$="${path}"]`))
+            }
+            if (originEl) { originEl.style.setProperty('view-transition-name', 'card-active'); originEl.classList.add('vt-no-blur') }
+            if (nextTarget) nextTarget.style.setProperty('view-transition-name', 'card-active')
+            const vt = document.startViewTransition(swap)
+            vt.finished.finally(() => {
+              if (originEl) { originEl.style.removeProperty('view-transition-name'); originEl.classList.remove('vt-no-blur') }
+              if (nextTarget) nextTarget.style.removeProperty('view-transition-name')
+            })
+          } else swap()
+        } catch { location.href = url }
+      }
+      document.addEventListener('click', (e) => {
+        if (e.defaultPrevented) return
+        const target = e.target
+        if (!target) return
+        const a = target.closest('a')
+        if (!a) return
+        if (e.button !== 0 || isModifierKey(e)) return
+        if (!isInternal(a)) return
+        e.preventDefault()
+        try {
+          const prev = history.state && typeof history.state === 'object' ? history.state : {}
+          history.replaceState({ ...prev, scrollY: window.scrollY }, '', location.href)
+        } catch {}
+        try {
+          const path = new URL(a.href).pathname
+          lastDetailHref = path.startsWith('/commands/') ? path : lastDetailHref
+        } catch {}
+        navigate(a.href, false, a)
+      })
+      window.addEventListener('popstate', () => {
+        const origin = document.querySelector('[data-vt-target="card"]')
+        navigate(location.href, true, origin, lastDetailHref)
+      })
+    </script> <script>
+      // Home page filter & tag menu
+      let globalBound = false
+      function mountFilter() {
+        const form = document.querySelector('form[role="search"]')
+        const input = form?.querySelector('input[name="q"]')
+        const tagBtn = document.getElementById('tag-filter-btn')
+        const tagMenu = document.getElementById('tag-menu')
+        const tagLabel = document.getElementById('tag-filter-label')
+        const grid = document.getElementById('cards')
+        if (!form || !input || !grid) return
+        if (form.dataset.bound === '1') return
+        form.dataset.bound = '1'
+        const cards = Array.from(grid.querySelectorAll('a[href^="/commands/"]'))
+        const items = cards.map((el) => ({
+          el,
+          text: `${(el.textContent || '').toLowerCase()} ${el.getAttribute('href') || ''}`,
+          tags: (el.getAttribute('data-tags') || '').split(',').filter(Boolean)
+        }))
+        let nores = document.getElementById('no-results')
+        if (!nores) {
+          nores = document.createElement('p')
+          nores.id = 'no-results'
+          nores.className = 'mt-8 text-center text-fg-muted'
+          nores.textContent = '未找到匹配的命令'
+          nores.style.display = 'none'
+          grid.after(nores)
+        }
+        function apply(q, tag) {
+          const needle = (q || '').trim().toLowerCase()
+          const t = (tag || '').trim()
+          let shown = 0
+          for (const { el, text, tags } of items) {
+            const okText = !needle || text.includes(needle)
+            const okTag = !t || tags.includes(t)
+            const ok = okText && okTag
+            el.classList.toggle('hidden', !ok)
+            if (ok) shown++
+          }
+          if (nores) nores.style.display = shown ? 'none' : ''
+        }
+        function updateHistory(q, tag) {
+          const url = new URL(location.href)
+          if (q) url.searchParams.set('q', q); else url.searchParams.delete('q')
+          if (tag) url.searchParams.set('tag', tag); else url.searchParams.delete('tag')
+          const prev = history.state && typeof history.state === 'object' ? history.state : {}
+          const nextState = { ...prev, q, tag }
+          history.replaceState(nextState, '', url.toString())
+        }
+        form.addEventListener('submit', (e) => {
+          e.preventDefault()
+          const visible = items.filter(({ el }) => !el.classList.contains('hidden'))
+          if (visible.length === 1) visible[0].el.click()
+        })
+        input.addEventListener('input', () => {
+          const tag = tagBtn?.dataset.value || ''
+          apply(input.value, tag)
+          updateHistory(input.value, tag)
+        })
+        function getTagBtn() { return document.getElementById('tag-filter-btn') }
+        function getTagMenu() { return document.getElementById('tag-menu') }
+        function getTagLabel() { return document.getElementById('tag-filter-label') }
+        function openMenu() {
+          const btn = getTagBtn(); const menu = getTagMenu(); if (!menu || !btn) return
+          menu.style.minWidth = `${btn.offsetWidth}px`
+          menu.classList.remove('hidden')
+          btn.setAttribute('aria-expanded', 'true')
+        }
+        function closeMenu() {
+          const btn = getTagBtn(); const menu = getTagMenu(); if (!menu || !btn) return
+          menu.classList.add('hidden')
+          btn.setAttribute('aria-expanded', 'false')
+        }
+        function toggleMenu() { const menu = getTagMenu(); if (!menu) return; menu.classList.contains('hidden') ? openMenu() : closeMenu() }
+        tagBtn?.addEventListener('click', (e) => { e.preventDefault(); toggleMenu() })
+        if (!globalBound) {
+          document.addEventListener('pointerdown', (e) => {
+            const t = e.target
+            if (!t) return
+            const menu = getTagMenu(); const btn = getTagBtn()
+            if (t.closest('#tag-menu') || t.closest('#tag-filter-btn')) return
+            if (menu && btn) closeMenu()
+          })
+          document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { const menu = getTagMenu(); if (menu && !menu.classList.contains('hidden')) closeMenu() } })
+          globalBound = true
+        }
+        tagMenu?.addEventListener('click', (e) => {
+          const btn = e.target?.closest('[data-tag]')
+          if (!btn) return
+          const value = btn.getAttribute('data-tag') || ''
+          const realBtn = getTagBtn(); const label = getTagLabel(); const menu = getTagMenu()
+          if (realBtn) realBtn.dataset.value = value
+          if (label) label.textContent = value || '全部标签'
+          menu?.querySelectorAll('[role="menuitemradio"]').forEach((el) => el.setAttribute('aria-checked', String(el.getAttribute('data-tag') === value)))
+          apply(input.value, value)
+          updateHistory(input.value, value)
+          closeMenu()
+        })
+        input.addEventListener('keydown', (e) => { if (e.key === 'Escape') { input.value = ''; apply('') } })
+        const params = new URLSearchParams(location.search)
+        const state = (history.state && typeof history.state === 'object') ? history.state : {}
+        const initialQ = state.q ?? params.get('q') ?? ''
+        const initialTag = state.tag ?? params.get('tag') ?? ''
+        if (initialQ) input.value = initialQ
+        if (tagBtn) tagBtn.dataset.value = initialTag
+        const label = getTagLabel(); if (label) label.textContent = initialTag || '全部标签'
+        getTagMenu()?.querySelectorAll('[role="menuitemradio"]').forEach((el) => el.setAttribute('aria-checked', String(el.getAttribute('data-tag') === (initialTag || ''))))
+        apply(input.value, initialTag)
+        updateHistory(input.value, initialTag)
+      }
+      mountFilter(); document.addEventListener('vt:page-swapped', mountFilter)
+    </script> <script>
+      // Back link behavior on detail pages
+      function bindBack() {
+        const el = document.getElementById('back-link')
+        if (!el || el.dataset.bound === '1') return
+        el.dataset.bound = '1'
+        el.addEventListener('click', (e) => {
+          e.preventDefault()
+          if (history.length > 1) history.back()
+          else location.href = '/'
+        })
+      }
+      bindBack(); document.addEventListener('vt:page-swapped', bindBack)
+    </script>  </body> </html>

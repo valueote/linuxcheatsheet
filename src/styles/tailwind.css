@@ -47,7 +47,8 @@
   }
 
   /* Reveal on enter */
-  .reveal { @apply opacity-0 translate-y-1 transition duration-500 ease-smooth; }
+  .reveal { @apply transition duration-500 ease-smooth; }
+  .reveal.hide { @apply opacity-0 translate-y-1; }
   .reveal.show { @apply opacity-100 translate-y-0; }
 
   .interactive { @apply transition duration-200 ease-smooth; }
