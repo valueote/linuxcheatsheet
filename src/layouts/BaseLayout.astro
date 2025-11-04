@@ -49,9 +49,21 @@ import '@/styles/fonts.css'
       <nav class="container flex h-14 items-center justify-between">
         <a href="/" class="font-semibold tracking-tight">Linux Cheatsheet</a>
         <div class="flex items-center gap-3 text-sm text-fg-muted">
-          <a href="/" class="hover:text-fg interactive">首页</a>
-          <a href="/commands" class="hover:text-fg interactive">命令</a>
-          <button id="theme-toggle" class="px-2 py-1 rounded border border-white/10 hover:bg-white/5 active:bg-white/10 interactive">主题</button>
+          <button id="theme-toggle" type="button" role="switch" aria-checked="false" class="theme-switch interactive" title="切换主题">
+            <span class="sr-only">切换主题</span>
+            <span class="switch-track">
+              <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="4" fill="currentColor"/>
+                <g stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round">
+                  <path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l-1.5-1.5M20.5 20.5L19 19M5 19l-1.5 1.5M20.5 3.5L19 5"/>
+                </g>
+              </svg>
+              <span class="switch-thumb"></span>
+              <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor"/>
+              </svg>
+            </span>
+          </button>
         </div>
       </nav>
     </header>
@@ -65,9 +77,15 @@ import '@/styles/fonts.css'
       const btn = document.getElementById('theme-toggle');
       const root = document.documentElement;
       const k = 'theme';
-      function apply(t){ root.setAttribute('data-theme', t); localStorage.setItem(k, t); }
+      function apply(t){
+        root.setAttribute('data-theme', t);
+        localStorage.setItem(k, t);
+        btn?.setAttribute('aria-checked', String(t === 'dark'))
+      }
       btn?.addEventListener('click', ()=>{ const t = root.getAttribute('data-theme')==='dark'?'light':'dark'; apply(t) });
       const saved = localStorage.getItem(k); if(saved) apply(saved);
+      // initialize aria state when no saved theme and default is dark
+      if(!saved){ btn?.setAttribute('aria-checked', String(root.getAttribute('data-theme')==='dark')) }
     </script>
   </body>
   

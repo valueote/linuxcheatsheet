@@ -29,6 +29,7 @@
   html {
     color-scheme: light dark;
     background-color: rgb(var(--bg));
+    font-size: 20px;
   }
 
   body {
@@ -66,4 +67,21 @@
   .shadow-elevated { box-shadow: 0 20px 40px -20px rgba(0,0,0,0.45); }
   #tag-menu { backdrop-filter: blur(10px); }
   #tag-menu .menu-item[aria-checked="true"] { @apply bg-white/10; }
+
+  /* Theme switch */
+  .theme-switch { @apply inline-flex items-center justify-center; }
+  .theme-switch .switch-track { @apply rounded-full transition duration-200 ease-smooth; width: 48px; height: 26px; position: relative; }
+  /* Better contrast in light/dark */
+  .theme-switch .switch-track { background-color: rgb(var(--fg) / 0.08); border: 1px solid rgb(var(--fg) / 0.15); }
+  html[data-theme="dark"] .theme-switch .switch-track { background-color: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.18); }
+  .theme-switch .switch-thumb { @apply rounded-full transition duration-200 ease-smooth; width: 18px; height: 18px; position: absolute; top: 4px; left: 4px; transform: translateX(0); background-color: rgb(var(--fg)); }
+  .theme-switch[aria-checked="true"] .switch-thumb { transform: translateX(22px); }
+  .theme-switch[aria-checked="true"] .switch-track { background-color: rgb(var(--brand) / 0.25); }
+  .theme-switch:focus-visible .switch-track { @apply ring-2 ring-black/20 dark:ring-white/25; }
+  /* Icons inside switch */
+  .theme-switch .icon { position: absolute; width: 14px; height: 14px; top: 50%; transform: translateY(-50%); color: rgb(var(--fg)); opacity: 0.55; transition: opacity var(--dur-base) var(--ease-smooth); }
+  .theme-switch .icon-sun { left: 6px; }
+  .theme-switch .icon-moon { right: 6px; }
+  .theme-switch[aria-checked="true"] .icon-moon { opacity: 1; }
+  .theme-switch[aria-checked="false"] .icon-sun { opacity: 1; }
 }
