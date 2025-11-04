@@ -106,22 +106,48 @@ import '@/styles/fonts.css'
       }
     </script>
     <script is:inline>
-      // Minimal cross-page View Transitions using the native API
+      // Minimal cross-page View Transitions + prefetch to reduce perceived latency
       function isModifierKey(e) { return e.metaKey || e.ctrlKey || e.shiftKey || e.altKey }
       function isInternal(a) { return a.origin === location.origin && !a.hasAttribute('download') && !a.target }
       let lastDetailHref = null
-      async function load(url) {
-        const res = await fetch(url, { headers: { 'X-Requested-With': 'view-transition' } })
-        if (!res.ok) throw new Error('Failed to fetch: ' + url)
-        const html = await res.text()
+
+      // Cache parsed documents in-memory
+      const docCache = new Map()
+      function parseDoc(html) {
         const doc = new DOMParser().parseFromString(html, 'text/html')
         const nextMain = doc.querySelector('main')
         if (!nextMain) throw new Error('No <main> in target document')
         return { doc, nextMain }
       }
+      function load(url) {
+        let p = docCache.get(url)
+        if (!p) {
+          p = fetch(url, { headers: { 'X-Requested-With': 'view-transition' }, cache: 'force-cache' })
+            .then((res) => { if (!res.ok) throw new Error('Failed to fetch: ' + url); return res.text() })
+            .then((html) => parseDoc(html))
+          docCache.set(url, p)
+        }
+        return p
+      }
+      function prefetch(url) { load(url).catch(() => {}) }
+      // Prefetch on hover/touch/focus to hide network RTT
+      function bindPrefetch(root = document) {
+        const want = (t) => {
+          const a = t?.closest ? t.closest('a[href^="/commands/"]') : null
+          return a && isInternal(a) ? a : null
+        }
+        root.addEventListener('mouseover', (e) => { const a = want(e.target); if (a) prefetch(a.href) })
+        root.addEventListener('touchstart', (e) => { const a = want(e.target); if (a) prefetch(a.href) }, { passive: true })
+        root.addEventListener('focusin', (e) => { const a = want(e.target); if (a) prefetch(a.href) })
+      }
+      bindPrefetch()
+
       async function navigate(url, replace = false, originEl = null, fromHref = null) {
         try {
-          const { doc, nextMain } = await load(url)
+          // Fallback to full navigation if content takes too long (>450ms)
+          const NAV_TIMEOUT = 450
+          const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('nav-timeout')), NAV_TIMEOUT))
+          const { doc, nextMain } = await Promise.race([load(url), timeout])
           let nextTarget = doc.querySelector('[data-vt-target="card"]')
           const currentMain = document.querySelector('main')
           if (!currentMain) { location.href = url; return }
