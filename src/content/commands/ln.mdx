@@ -1,0 +1,35 @@
+---
+title: ln
+description: 创建硬链接或符号链接（软链接）。
+tags: [文件操作]
+flags:
+  - { name: "-s", description: "创建符号链接（软链接）" }
+  - { name: "-f", description: "覆盖已存在的目标" }
+  - { name: "-n", description: "把符号链接目标视为普通文件（不跟随）" }
+  - { name: "-v", description: "显示链接创建过程" }
+examples:
+  - { title: "创建软链接", command: "ln -s /opt/app/bin/app /usr/local/bin/app" }
+  - { title: "创建硬链接", command: "ln file.txt file.hardlink" }
+  - { title: "覆盖已存在的链接", command: "ln -sf new-target current-link" }
+---
+
+用途：为文件/目录创建引用。软链接类似 Windows 的快捷方式，硬链接为同一 inode 的另一名称。
+
+语法：
+
+```bash
+ln [选项] 源 目标
+```
+
+常见用法：
+
+```bash
+# 将可执行加入 PATH（软链接）
+ln -s /opt/app/bin/app /usr/local/bin/app
+
+# 创建硬链接（同盘）
+ln file.txt file.hardlink
+
+# 覆盖已存在的符号链接
+ln -sf new-target current-link
+```

@@ -1,0 +1,29 @@
+---
+title: rmdir
+description: 删除空目录（仅适用于空目录）。
+tags: [文件操作]
+flags:
+  - { name: "-p", description: "递归删除路径中多级空目录" }
+  - { name: "-v", description: "显示删除过程" }
+examples:
+  - { title: "删除空目录", command: "rmdir empty_dir" }
+  - { title: "递归删除多级空目录", command: "rmdir -p a/b/c" }
+---
+
+用途：安全删除空目录；若非空建议先确认内容再处理。
+
+语法：
+
+```bash
+rmdir [选项] 目录
+```
+
+常见用法：
+
+```bash
+# 删除空目录
+rmdir empty_dir
+
+# 递归删除 a/b/c 这条路径中所有空目录
+rmdir -p a/b/c
+```

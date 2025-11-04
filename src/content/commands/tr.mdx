@@ -1,0 +1,35 @@
+---
+title: tr
+description: 转换或删除字符，支持压缩重复字符。
+tags: [文本处理]
+flags:
+  - { name: "-d", description: "删除集合中的字符" }
+  - { name: "-s", description: "压缩重复的字符为一个" }
+  - { name: "-c", description: "对集合取反（补集）" }
+examples:
+  - { title: "大小写转换（小写→大写）", command: "echo 'hello' | tr '[:lower:]' '[:upper:]'" }
+  - { title: "删除 Windows 回车", command: "tr -d '\\r' < file.txt > file.unix.txt" }
+  - { title: "压缩多余空格", command: "tr -s ' ' < in.txt > out.txt" }
+---
+
+用途：对字符级别进行替换、删除与压缩，常结合管道使用。
+
+语法：
+
+```bash
+tr [选项] 集合1 [集合2]
+```
+
+常见用法：
+
+```bash
+# 转大写
+echo 'hello' | tr '[:lower:]' '[:upper:]'
+
+# 删除 CR（换行规范化）
+tr -d '\\r' < file.txt > file.unix.txt
+
+# 压缩多个空格为单个
+tr -s ' ' < in.txt > out.txt
+```
+

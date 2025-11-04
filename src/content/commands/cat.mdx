@@ -1,0 +1,35 @@
+---
+title: cat
+description: 输出文件内容，支持合并与显示行号。
+tags: [文本处理]
+flags:
+  - { name: "-n", description: "为所有输出行编号" }
+  - { name: "-b", description: "仅为非空行编号" }
+  - { name: "-A", description: "显示所有字符（含不可见字符）" }
+  - { name: "-s", description: "压缩多余的空行" }
+examples:
+  - { title: "查看文件内容", command: "cat file.txt" }
+  - { title: "合并多个文件并输出到新文件", command: "cat a.txt b.txt > all.txt" }
+  - { title: "为输出行添加行号", command: "cat -n file.txt" }
+---
+
+用途：快速查看或合并文本内容，也常作为管道的起点/终点。
+
+语法：
+
+```bash
+cat [选项] [文件...]
+```
+
+常见用法：
+
+```bash
+# 查看单个文件
+cat README.md
+
+# 合并多个文件到一个新文件
+cat a.txt b.txt > all.txt
+
+# 显示行号（或仅为非空行编号 -b）
+cat -n file.txt
+```

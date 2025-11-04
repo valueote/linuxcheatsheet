@@ -1,0 +1,29 @@
+---
+title: tee
+description: 将标准输入同时写入文件并继续输出到终端。
+tags: [文本处理]
+flags:
+  - { name: "-a", description: "追加到文件（不覆盖）" }
+  - { name: "-i", description: "忽略中断信号" }
+examples:
+  - { title: "同时保存输出", command: "make build 2>&1 | tee build.log" }
+  - { title: "以追加方式记录日志", command: "python script.py | tee -a run.log" }
+---
+
+用途：在不中断管道的情况下把输出“分叉”保存到文件。
+
+语法：
+
+```bash
+... | tee [选项] 文件...
+```
+
+常见用法：
+
+```bash
+# 保存构建输出到文件，同时在终端可见
+make build 2>&1 | tee build.log
+
+# 追加记录运行日志
+python script.py | tee -a run.log
+```

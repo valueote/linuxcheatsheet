@@ -1,0 +1,34 @@
+---
+title: mkdir
+description: 创建目录，可一次创建多级父目录。
+tags: [文件操作]
+flags:
+  - { name: "-p", description: "按需创建父目录（存在则忽略）" }
+  - { name: "-m", description: "设置目录权限（八进制，如 755）" }
+  - { name: "-v", description: "显示创建过程" }
+examples:
+  - { title: "创建多级目录（若已存在不报错）", command: "mkdir -p path/to/cache" }
+  - { title: "创建并设置权限", command: "mkdir -m 755 logs" }
+  - { title: "一次创建多个目录", command: "mkdir src test dist" }
+---
+
+用途：新建目录结构，常配合 `-p` 避免报错。
+
+语法：
+
+```bash
+mkdir [选项] 目录名...
+```
+
+常见用法：
+
+```bash
+# 创建多级目录
+mkdir -p path/to/cache
+
+# 创建并指定权限
+mkdir -m 755 logs
+
+# 一次创建多个目录
+mkdir src test dist
+```

@@ -1,0 +1,35 @@
+---
+title: tail
+description: 查看文件末尾内容，支持实时跟随日志追加。
+tags: [文本处理]
+flags:
+  - { name: "-n", description: "输出最后 N 行" }
+  - { name: "-f", description: "跟随文件增长（常用于日志）" }
+  - { name: "-F", description: "跟随并在文件轮转后自动重新打开" }
+  - { name: "-c", description: "输出最后 N 字节" }
+examples:
+  - { title: "查看最后 100 行", command: "tail -n 100 app.log" }
+  - { title: "实时查看日志输出", command: "tail -f app.log" }
+  - { title: "跟随并处理日志", command: "tail -f app.log | grep ERROR" }
+---
+
+用途：浏览文件尾部与实时追加内容（如日志）。
+
+语法：
+
+```bash
+tail [选项] [文件]
+```
+
+常见用法：
+
+```bash
+# 查看最后 100 行
+tail -n 100 app.log
+
+# 实时跟随日志（文件轮转时用 -F 更稳）
+tail -f app.log
+
+# 跟随并过滤出 ERROR
+tail -f app.log | grep ERROR
+```

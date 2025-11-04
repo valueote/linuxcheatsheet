@@ -1,52 +1,52 @@
-/* HarmonyOS Sans webfont loading (optional local files + local() fallbacks) */
+/* HarmonyOS Sans local webfonts (from npm harmonyos-sans) */
+/* Note: Using TTFs from public/fonts. Consider WOFF2 for production size. */
 
-/* Light (300) */
+/* Latin + general family */
 @font-face {
-  font-family: "HarmonyOS Sans";
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: local("HarmonyOS Sans Light"), local("HarmonyOS Sans SC Light"),
-       url("/fonts/harmonyos-sans/HarmonyOS_Sans_SC_Light.woff2") format("woff2");
-}
-
-/* Regular (400) */
-@font-face {
-  font-family: "HarmonyOS Sans";
+  font-family: 'HarmonyOS Sans';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local("HarmonyOS Sans Regular"), local("HarmonyOS Sans"), local("HarmonyOS Sans SC Regular"), local("HarmonyOS Sans SC"),
-       url("/fonts/harmonyos-sans/HarmonyOS_Sans_SC_Regular.woff2") format("woff2");
+  src: url('/fonts/harmonyos-sans/HarmonyOS_Sans_Regular.ttf') format('truetype');
 }
 
-/* Medium (500) */
 @font-face {
-  font-family: "HarmonyOS Sans";
+  font-family: 'HarmonyOS Sans';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: local("HarmonyOS Sans Medium"), local("HarmonyOS Sans SC Medium"),
-       url("/fonts/harmonyos-sans/HarmonyOS_Sans_SC_Medium.woff2") format("woff2");
+  src: url('/fonts/harmonyos-sans/HarmonyOS_Sans_Medium.ttf') format('truetype');
 }
 
-/* Semibold (600) */
 @font-face {
-  font-family: "HarmonyOS Sans";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local("HarmonyOS Sans Semibold"), local("HarmonyOS Sans SC Semibold"),
-       url("/fonts/harmonyos-sans/HarmonyOS_Sans_SC_Semibold.woff2") format("woff2");
-}
-
-/* Bold (700) */
-@font-face {
-  font-family: "HarmonyOS Sans";
+  font-family: 'HarmonyOS Sans';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: local("HarmonyOS Sans Bold"), local("HarmonyOS Sans SC Bold"),
-       url("/fonts/harmonyos-sans/HarmonyOS_Sans_SC_Bold.woff2") format("woff2");
+  src: url('/fonts/harmonyos-sans/HarmonyOS_Sans_Bold.ttf') format('truetype');
 }
 
+/* Simplified Chinese */
+@font-face {
+  font-family: 'HarmonyOS Sans SC';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/harmonyos-sans/HarmonyOS_Sans_SC_Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'HarmonyOS Sans SC';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/harmonyos-sans/HarmonyOS_Sans_SC_Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'HarmonyOS Sans SC';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/harmonyos-sans/HarmonyOS_Sans_SC_Bold.ttf') format('truetype');
+}

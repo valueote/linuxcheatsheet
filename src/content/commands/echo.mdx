@@ -1,0 +1,33 @@
+---
+title: echo
+description: 输出文本或变量值到终端。
+tags: [文本处理]
+flags:
+  - { name: "-n", description: "结尾不输出换行" }
+  - { name: "-e", description: "解析转义字符（如 \\n, \\t）" }
+examples:
+  - { title: "输出字符串", command: "echo 'hello'" }
+  - { title: "输出环境变量", command: "echo \"$HOME\"" }
+  - { title: "启用转义并换行", command: "echo -e 'line1\\nline2'" }
+---
+
+用途：打印文本或变量内容，常用作脚本与管道中的调试/提示。
+
+语法：
+
+```bash
+echo [选项] [字符串...]
+```
+
+常见用法：
+
+```bash
+# 输出字面文本
+echo 'hello'
+
+# 输出环境变量
+echo "$HOME"
+
+# 解析转义字符（不同 shell 行为略有差异）
+echo -e 'line1\nline2'
+```

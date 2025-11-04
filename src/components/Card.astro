@@ -8,7 +8,7 @@ export interface CardProps {
 }
 const { title, description, href, transitionName, tags } = Astro.props as CardProps
 ---
-<a href={href} class="block glass rounded-xl p-5 card-hover reveal interactive hover:bg-white/10 active:bg-white/15" style={transitionName ? `view-transition-name:${transitionName}` : undefined} data-tags={(tags ?? []).join(',')}>
+<a href={href} class="block glass rounded-xl p-5 card-hover reveal interactive hover:bg-white/10 active:bg-white/15" data-tags={(tags ?? []).join(',')}>
   <h3 class="text-base font-semibold">{title}</h3>
   {description && <p class="mt-1 text-sm text-fg-muted">{description}</p>}
   {tags && tags.length > 0 && (

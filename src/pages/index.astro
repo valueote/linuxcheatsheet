@@ -34,5 +34,4 @@ const allTags = Array.from(new Set(commands.flatMap((c)=> (c.data as any).tags ?
       <Card title={c.data.title} description={c.data.description} href={`/commands/${c.slug}`} transitionName={`card-${c.slug}`} tags={(c.data as any).tags} />
     ))}
   </section>
-  <script type="module" src="/src/scripts/homeFilter.client.ts"></script>
 </BaseLayout>

@@ -1,0 +1,35 @@
+---
+title: touch
+description: 创建空文件或更新文件的时间戳。
+tags: [文件操作]
+flags:
+  - { name: "-c", description: "只修改时间，不创建新文件" }
+  - { name: "-d", description: "指定时间（如 '2024-01-01 12:00'）" }
+  - { name: "-t", description: "指定时间（[[CC]YY]MMDDhhmm[.ss] 格式）" }
+  - { name: "-r", description: "使用参考文件的时间戳" }
+examples:
+  - { title: "创建空文件", command: "touch notes.txt" }
+  - { title: "设置指定修改时间", command: "touch -d '2024-01-01 12:00' report.txt" }
+  - { title: "不创建不存在的文件", command: "touch -c missing.txt" }
+---
+
+用途：快速新建文件或调整文件的修改/访问时间。
+
+语法：
+
+```bash
+touch [选项] 文件...
+```
+
+常见用法：
+
+```bash
+# 新建空文件
+touch notes.txt
+
+# 指定人类可读时间
+touch -d '2024-01-01 12:00' report.txt
+
+# 不创建缺失文件，仅在存在时更新时间
+touch -c missing.txt
+```

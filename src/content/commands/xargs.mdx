@@ -1,0 +1,35 @@
+---
+title: xargs
+description: 将标准输入拼接为命令参数并批量执行。
+tags: [文本处理]
+flags:
+  - { name: "-0", description: "输入以 NUL 分隔（配合 find -print0）" }
+  - { name: "-n N", description: "每次命令使用 N 个参数" }
+  - { name: "-P N", description: "并行执行 N 个子进程" }
+  - { name: "-I {}", description: "使用占位符替换（逐条处理）" }
+examples:
+  - { title: "安全地批量压缩 .log 文件", command: "find . -name '*.log' -print0 | xargs -0 -n 1 gzip" }
+  - { title: "并行处理（4 并发）", command: "printf 'a\nb\nc\n' | xargs -n 1 -P 4 echo item:" }
+  - { title: "用占位符逐条移动", command: "cat files.txt | xargs -I {} mv {} dist/" }
+---
+
+用途：把来自管道/文件的条目组装为参数，减少循环与子进程开销。
+
+语法：
+
+```bash
+... | xargs [选项] 命令 [参数模板]
+```
+
+常见用法：
+
+```bash
+# NUL 分隔，安全处理文件名中的空格/换行
+find . -name '*.log' -print0 | xargs -0 -n 1 gzip
+
+# 并行执行（4 个并发）
+printf 'a\nb\nc\n' | xargs -n 1 -P 4 echo item:
+
+# 使用占位符逐条替换到命令
+cat files.txt | xargs -I {} mv {} dist/
+```

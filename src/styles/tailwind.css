@@ -52,6 +52,14 @@
 
   .interactive { @apply transition duration-200 ease-smooth; }
 
+  /* During View Transition, remove expensive backdrop blur on the origin */
+  .vt-no-blur { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+
+  /* Customize the shared element animation to avoid zooming the blurred card */
+  @keyframes vt-fade-in { from { opacity: 0.001 } to { opacity: 1 } }
+  ::view-transition-old(card-active) { animation: none; opacity: 0; }
+  ::view-transition-new(card-active) { animation: vt-fade-in var(--dur-base) var(--ease-smooth) both; }
+
   
 
   /* Custom dropdown menu for tag filter */

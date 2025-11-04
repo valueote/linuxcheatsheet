@@ -1,0 +1,36 @@
+---
+title: sort
+description: 对文本行进行排序，支持按列和数字排序。
+tags: [文本处理]
+flags:
+  - { name: "-n", description: "按数值排序" }
+  - { name: "-r", description: "倒序排列" }
+  - { name: "-u", description: "去重（保留唯一）" }
+  - { name: "-t", description: "指定分隔符（如 , 或 \t）" }
+  - { name: "-k", description: "按第 K 列排序（可配合 n/r）" }
+examples:
+  - { title: "简单排序", command: "sort names.txt" }
+  - { title: "按第二列的数值升序（CSV）", command: "sort -t, -k2,2n data.csv" }
+  - { title: "倒序且去重", command: "sort -ru list.txt" }
+---
+
+用途：对输入行排序，支持按列、数值、去重等。
+
+语法：
+
+```bash
+sort [选项] [文件]
+```
+
+常见用法：
+
+```bash
+# 基本排序
+sort names.txt
+
+# 按第 2 列的数值排序（CSV）
+sort -t, -k2,2n data.csv
+
+# 倒序且去重
+sort -ru list.txt
+```

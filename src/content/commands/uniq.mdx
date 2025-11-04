@@ -1,0 +1,35 @@
+---
+title: uniq
+description: 过滤相邻重复行，常与 sort 搭配使用。
+tags: [文本处理]
+flags:
+  - { name: "-c", description: "输出每个唯一行的计数" }
+  - { name: "-d", description: "仅输出重复的行" }
+  - { name: "-u", description: "仅输出不重复的行" }
+  - { name: "-i", description: "忽略大小写" }
+examples:
+  - { title: "排序后去重（常规用法）", command: "sort words.txt | uniq" }
+  - { title: "统计每行出现次数（降序）", command: "sort words.txt | uniq -c | sort -nr" }
+  - { title: "只输出重复的行", command: "sort words.txt | uniq -d" }
+---
+
+用途：对相邻的重复行去重；通常需要先对输入排序。
+
+语法：
+
+```bash
+uniq [选项] [文件]
+```
+
+常见用法：
+
+```bash
+# 去重（先排序）
+sort words.txt | uniq
+
+# 统计每行出现次数并按次数降序
+sort words.txt | uniq -c | sort -nr
+
+# 仅显示重复的行
+sort words.txt | uniq -d
+```

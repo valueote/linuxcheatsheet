@@ -159,6 +159,13 @@ declare module 'astro:content' {
   collection: "commands";
   data: InferEntrySchema<"commands">
 } & { render(): Render[".mdx"] };
+"cat.mdx": {
+	id: "cat.mdx";
+  slug: "cat";
+  body: string;
+  collection: "commands";
+  data: InferEntrySchema<"commands">
+} & { render(): Render[".mdx"] };
 "chmod.mdx": {
 	id: "chmod.mdx";
   slug: "chmod";
@@ -201,6 +208,20 @@ declare module 'astro:content' {
   collection: "commands";
   data: InferEntrySchema<"commands">
 } & { render(): Render[".mdx"] };
+"du.mdx": {
+	id: "du.mdx";
+  slug: "du";
+  body: string;
+  collection: "commands";
+  data: InferEntrySchema<"commands">
+} & { render(): Render[".mdx"] };
+"echo.mdx": {
+	id: "echo.mdx";
+  slug: "echo";
+  body: string;
+  collection: "commands";
+  data: InferEntrySchema<"commands">
+} & { render(): Render[".mdx"] };
 "find.mdx": {
 	id: "find.mdx";
   slug: "find";
@@ -215,9 +236,37 @@ declare module 'astro:content' {
   collection: "commands";
   data: InferEntrySchema<"commands">
 } & { render(): Render[".mdx"] };
+"head.mdx": {
+	id: "head.mdx";
+  slug: "head";
+  body: string;
+  collection: "commands";
+  data: InferEntrySchema<"commands">
+} & { render(): Render[".mdx"] };
+"less.mdx": {
+	id: "less.mdx";
+  slug: "less";
+  body: string;
+  collection: "commands";
+  data: InferEntrySchema<"commands">
+} & { render(): Render[".mdx"] };
+"ln.mdx": {
+	id: "ln.mdx";
+  slug: "ln";
+  body: string;
+  collection: "commands";
+  data: InferEntrySchema<"commands">
+} & { render(): Render[".mdx"] };
 "ls.mdx": {
 	id: "ls.mdx";
   slug: "ls";
+  body: string;
+  collection: "commands";
+  data: InferEntrySchema<"commands">
+} & { render(): Render[".mdx"] };
+"mkdir.mdx": {
+	id: "mkdir.mdx";
+  slug: "mkdir";
   body: string;
   collection: "commands";
   data: InferEntrySchema<"commands">
@@ -243,6 +292,13 @@ declare module 'astro:content' {
   collection: "commands";
   data: InferEntrySchema<"commands">
 } & { render(): Render[".mdx"] };
+"rmdir.mdx": {
+	id: "rmdir.mdx";
+  slug: "rmdir";
+  body: string;
+  collection: "commands";
+  data: InferEntrySchema<"commands">
+} & { render(): Render[".mdx"] };
 "sed.mdx": {
 	id: "sed.mdx";
   slug: "sed";
@@ -250,9 +306,65 @@ declare module 'astro:content' {
   collection: "commands";
   data: InferEntrySchema<"commands">
 } & { render(): Render[".mdx"] };
+"sort.mdx": {
+	id: "sort.mdx";
+  slug: "sort";
+  body: string;
+  collection: "commands";
+  data: InferEntrySchema<"commands">
+} & { render(): Render[".mdx"] };
+"tail.mdx": {
+	id: "tail.mdx";
+  slug: "tail";
+  body: string;
+  collection: "commands";
+  data: InferEntrySchema<"commands">
+} & { render(): Render[".mdx"] };
 "tar.mdx": {
 	id: "tar.mdx";
   slug: "tar";
+  body: string;
+  collection: "commands";
+  data: InferEntrySchema<"commands">
+} & { render(): Render[".mdx"] };
+"tee.mdx": {
+	id: "tee.mdx";
+  slug: "tee";
+  body: string;
+  collection: "commands";
+  data: InferEntrySchema<"commands">
+} & { render(): Render[".mdx"] };
+"touch.mdx": {
+	id: "touch.mdx";
+  slug: "touch";
+  body: string;
+  collection: "commands";
+  data: InferEntrySchema<"commands">
+} & { render(): Render[".mdx"] };
+"tr.mdx": {
+	id: "tr.mdx";
+  slug: "tr";
+  body: string;
+  collection: "commands";
+  data: InferEntrySchema<"commands">
+} & { render(): Render[".mdx"] };
+"uniq.mdx": {
+	id: "uniq.mdx";
+  slug: "uniq";
+  body: string;
+  collection: "commands";
+  data: InferEntrySchema<"commands">
+} & { render(): Render[".mdx"] };
+"wc.mdx": {
+	id: "wc.mdx";
+  slug: "wc";
+  body: string;
+  collection: "commands";
+  data: InferEntrySchema<"commands">
+} & { render(): Render[".mdx"] };
+"xargs.mdx": {
+	id: "xargs.mdx";
+  slug: "xargs";
   body: string;
   collection: "commands";
   data: InferEntrySchema<"commands">

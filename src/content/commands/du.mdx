@@ -1,0 +1,35 @@
+---
+title: du
+description: 查看目录或文件占用的磁盘空间大小。
+tags: [磁盘]
+flags:
+  - { name: "-h", description: "人类可读大小（K/M/G）" }
+  - { name: "-s", description: "仅输出汇总（总大小）" }
+  - { name: "--max-depth=N", description: "递归深度（N 层）" }
+  - { name: "-a", description: "包括文件与目录（默认仅目录）" }
+examples:
+  - { title: "查看当前目录每个子项的大小", command: "du -h --max-depth=1" }
+  - { title: "仅输出当前目录总大小", command: "du -sh ." }
+  - { title: "查看各子目录大小（简洁）", command: "du -sh *" }
+---
+
+用途：评估目录层级的磁盘占用，用于发现“大户”。
+
+语法：
+
+```bash
+du [选项] [路径]
+```
+
+常见用法：
+
+```bash
+# 每级目录大小（一层）
+du -h --max-depth=1
+
+# 当前目录总大小
+du -sh .
+
+# 列出各子目录大小
+du -sh *
+```

@@ -1,0 +1,34 @@
+---
+title: head
+description: 查看文件开头的若干行或字节数。
+tags: [文本处理]
+flags:
+  - { name: "-n", description: "输出前 N 行" }
+  - { name: "-c", description: "输出前 N 字节" }
+  - { name: "-q", description: "多文件时不显示文件名标题" }
+examples:
+  - { title: "查看前 20 行", command: "head -n 20 file.txt" }
+  - { title: "查看前 1KB 字节", command: "head -c 1K file.bin" }
+  - { title: "查看多个文件的开头", command: "head -n 5 a.txt b.txt" }
+---
+
+用途：快速预览大型文件的开头部分。
+
+语法：
+
+```bash
+head [选项] [文件...]
+```
+
+常见用法：
+
+```bash
+# 前 20 行
+head -n 20 file.txt
+
+# 前 1KB 字节
+head -c 1K file.bin
+
+# 多文件查看
+head -n 5 a.txt b.txt
+```

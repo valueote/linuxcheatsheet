@@ -1,0 +1,35 @@
+---
+title: wc
+description: 统计文本的行数、词数、字节/字符数。
+tags: [文本处理]
+flags:
+  - { name: "-l", description: "仅输出行数" }
+  - { name: "-w", description: "仅输出词数" }
+  - { name: "-c", description: "仅输出字节数" }
+  - { name: "-m", description: "仅输出字符数（多字节字符）" }
+examples:
+  - { title: "统计行数", command: "wc -l file.txt" }
+  - { title: "统计词数与字节数", command: "wc -w -c file.txt" }
+  - { title: "统计标准输入的行数", command: "grep -r TODO . | wc -l" }
+---
+
+用途：快速得到文本规模指标（行/词/字节/字符）。
+
+语法：
+
+```bash
+wc [选项] [文件...]
+```
+
+常见用法：
+
+```bash
+# 行数
+wc -l file.txt
+
+# 词数与字节数
+wc -w -c file.txt
+
+# 统计标准输入
+grep -r TODO . | wc -l
+```
