@@ -1,0 +1,15 @@
+---
+interface Props { value: string; class?: string }
+const { value, class: klass } = Astro.props as Props
+---
+<button class={`px-2 py-1 text-xs rounded border border-white/10 hover:bg-white/5 ${klass ?? ''}`}
+  on:click={() => navigator.clipboard.writeText(value).then(()=>{
+    const e = document.createElement('div');
+    e.textContent = '已复制';
+    e.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 px-3 py-1 rounded bg-white/10 border border-white/15 text-sm';
+    document.body.appendChild(e); setTimeout(()=>e.remove(), 900)
+  })}
+>
+  复制
+</button>
+

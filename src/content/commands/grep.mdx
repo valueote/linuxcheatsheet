@@ -1,0 +1,37 @@
+---
+title: grep
+description: 在文本中按正则/字符串搜索匹配的行。
+tags: [文本, 搜索]
+flags:
+  - { name: "-i", description: "忽略大小写" }
+  - { name: "-r", description: "递归目录" }
+  - { name: "-n", description: "显示行号" }
+  - { name: "-E", description: "使用扩展正则（ERE）" }
+  - { name: "-v", description: "反向匹配（排除）" }
+  - { name: "-H", description: "总是显示文件名" }
+examples:
+  - { title: "在当前目录递归搜索 'TODO'（忽略大小写）", command: "grep -rinH 'TODO' ." }
+  - { title: "排除包含 'test' 的行", command: "grep -v 'test' file.txt" }
+  - { title: "按扩展正则匹配多词", command: "grep -E '(error|fail|fatal)' app.log" }
+---
+
+用途：在文件或标准输入中查找匹配模式的行。
+
+语法：
+
+```bash
+grep [选项] 模式 [文件...]
+```
+
+常见用法：
+
+```bash
+# 递归搜索并显示行号/文件名
+grep -rinH "TODO" .
+
+# 反向匹配（排除包含关键字的行）
+grep -v "test" file.txt
+
+# 扩展正则：匹配多个关键词
+grep -E '(error|fail|fatal)' app.log
+```

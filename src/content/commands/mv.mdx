@@ -1,0 +1,46 @@
+---
+title: mv
+description: 移动或重命名文件/目录。
+tags: [文件, 移动, 重命名]
+flags:
+  - { name: "-i", description: "覆盖前交互式确认" }
+  - { name: "-n", description: "不覆盖已存在的文件" }
+  - { name: "-f", description: "强制覆盖，不提示" }
+  - { name: "-v", description: "输出处理的文件名" }
+examples:
+  - { title: "重命名文件", command: "mv old.txt new.txt" }
+  - { title: "移动到目录", command: "mv file.txt dir/" }
+  - { title: "覆盖前确认", command: "mv -i file.txt existing.txt" }
+  - { title: "不覆盖已存在的目标", command: "mv -n file.txt existing.txt" }
+---
+
+用途：移动文件/目录，或进行重命名。
+
+语法：
+
+```bash
+mv [选项] 源 目标
+mv [选项] 源... 目录/
+```
+
+常见用法：
+
+```bash
+# 重命名
+mv old.txt new.txt
+
+# 移动到目录
+mv file.txt dir/
+
+# 覆盖前确认（更安全）
+mv -i file.txt existing.txt
+
+# 不覆盖已存在的目标
+mv -n file.txt existing.txt
+```
+
+import Danger from '../../components/Danger.astro'
+
+<Danger title="注意覆盖">
+`mv` 可能覆盖目标文件，建议默认加 `-i` 或 `-n`，避免误覆盖导致数据丢失。
+</Danger>

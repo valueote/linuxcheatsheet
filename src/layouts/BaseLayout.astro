@@ -1,0 +1,74 @@
+---
+
+interface Props {
+  title?: string
+  description?: string
+}
+const { title = 'Linux Cheatsheet', description = '现代、清晰的 Linux 命令速查' } = Astro.props as Props
+import '@/styles/tailwind.css'
+import '@/styles/fonts.css'
+---
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" />
+    <title>{title}</title>
+    <style is:global>
+      .mesh-bg { position: fixed; inset: -10% -10% auto -10%; z-index: -1; filter: blur(60px); opacity: 0.6; pointer-events:none; }
+      /* Light theme: 黑色低透明度光斑 */
+      .mesh-a { background:
+        radial-gradient(600px 400px at 20% 30%, rgba(0,0,0,.06), transparent 60%),
+        radial-gradient(500px 400px at 80% 10%, rgba(0,0,0,.05), transparent 60%),
+        radial-gradient(500px 400px at 70% 70%, rgba(0,0,0,.04), transparent 60%);
+        animation: drift 28s var(--ease-smooth, cubic-bezier(0.22,1,0.36,1)) infinite alternate;
+      }
+      /* Dark theme: 白色低透明度光斑 */
+      html[data-theme="dark"] .mesh-a { background:
+        radial-gradient(600px 400px at 20% 30%, rgba(255,255,255,.14), transparent 60%),
+        radial-gradient(500px 400px at 80% 10%, rgba(255,255,255,.10), transparent 60%),
+        radial-gradient(500px 400px at 70% 70%, rgba(255,255,255,.08), transparent 60%);
+        animation: drift 28s var(--ease-smooth, cubic-bezier(0.22,1,0.36,1)) infinite alternate;
+      }
+
+      @keyframes drift {
+        from { transform: translate3d(0,0,0) scale(1.02); }
+        to   { transform: translate3d(2%, -1.5%, 0) scale(1.04); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .mesh-a { animation: none !important; }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <div class="mesh-bg mesh-a"></div>
+    <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-bg/60 border-b border-white/10">
+      <nav class="container flex h-14 items-center justify-between">
+        <a href="/" class="font-semibold tracking-tight">Linux Cheatsheet</a>
+        <div class="flex items-center gap-3 text-sm text-fg-muted">
+          <a href="/" class="hover:text-fg interactive">首页</a>
+          <a href="/commands" class="hover:text-fg interactive">命令</a>
+          <button id="theme-toggle" class="px-2 py-1 rounded border border-white/10 hover:bg-white/5 active:bg-white/10 interactive">主题</button>
+        </div>
+      </nav>
+    </header>
+    <main class="container py-10 lg:py-16">
+      <slot />
+    </main>
+    <script type="module" src="/src/scripts/lenis.client.ts"></script>
+    <script type="module" src="/src/scripts/inview.client.ts"></script>
+    <script type="module" src="/src/scripts/viewTransitions.client.ts"></script>
+    <script>
+      const btn = document.getElementById('theme-toggle');
+      const root = document.documentElement;
+      const k = 'theme';
+      function apply(t){ root.setAttribute('data-theme', t); localStorage.setItem(k, t); }
+      btn?.addEventListener('click', ()=>{ const t = root.getAttribute('data-theme')==='dark'?'light':'dark'; apply(t) });
+      const saved = localStorage.getItem(k); if(saved) apply(saved);
+    </script>
+  </body>
+  
+</html>

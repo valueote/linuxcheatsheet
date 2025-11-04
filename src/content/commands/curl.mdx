@@ -1,0 +1,43 @@
+---
+title: curl
+description: 进行 HTTP(S) 请求与文件下载。
+tags: [网络, HTTP]
+flags:
+  - { name: "-I", description: "仅请求响应头（HEAD）" }
+  - { name: "-L", description: "跟随重定向" }
+  - { name: "-o", description: "保存到指定文件名" }
+  - { name: "-O", description: "以原文件名保存" }
+  - { name: "-sS", description: "静默但在错误时输出" }
+  - { name: "-X", description: "指定方法，如 GET/POST/PUT" }
+  - { name: "-H", description: "添加请求头" }
+  - { name: "-d", description: "发送表单或 JSON 数据（配合 -H）" }
+examples:
+  - { title: "下载并以原名保存", command: "curl -O https://example.com/file.tar.gz" }
+  - { title: "跟随重定向并保存为 out.html", command: "curl -L -o out.html https://example.com" }
+  - { title: "仅看响应头", command: "curl -I https://example.com" }
+  - { title: "POST JSON", command: "curl -X POST -H 'Content-Type: application/json' -d '{\n  \"name\": \"Alice\"\n}' https://httpbin.org/post" }
+---
+
+用途：命令行发起 HTTP 请求、下载文件、调试接口。
+
+语法：
+
+```bash
+curl [选项] URL
+```
+
+常见用法：
+
+```bash
+# 下载
+curl -O https://example.com/file.tar.gz
+
+# 跟随重定向并保存
+curl -L -o out.html https://example.com
+
+# 只看响应头
+curl -I https://example.com
+
+# POST JSON
+curl -X POST -H 'Content-Type: application/json' -d '{"name":"Alice"}' https://httpbin.org/post
+```

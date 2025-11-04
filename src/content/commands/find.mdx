@@ -1,0 +1,50 @@
+---
+title: find
+description: 按条件在目录树中查找文件或目录。
+tags: [文件, 搜索]
+flags:
+  - { name: "-name", description: "按名称匹配（支持通配符）" }
+  - { name: "-iname", description: "名称匹配（忽略大小写）" }
+  - { name: "-type", description: "按类型过滤（f: 文件, d: 目录 等）" }
+  - { name: "-size", description: "按大小过滤（如 +100M, -10k）" }
+  - { name: "-mtime", description: "按修改时间（天）过滤（如 -1, +7）" }
+  - { name: "-maxdepth", description: "限制最大深度" }
+  - { name: "-print0", description: "以 NUL 分隔输出，用于配合 xargs -0" }
+  - { name: "-delete", description: "删除匹配项（危险）" }
+examples:
+  - { title: "按名称匹配 .log 文件", command: "find . -type f -name '*.log'" }
+  - { title: "查找大于 100MB 的文件", command: "find . -type f -size +100M" }
+  - { title: "最近 1 天内修改的文件", command: "find . -type f -mtime -1" }
+  - { title: "安全删除：先打印，后删除", command: "find . -type f -name '*.tmp' -print" }
+  - { title: "搭配 xargs 可靠处理空格", command: "find . -type f -name '*.txt' -print0 | xargs -0 wc -l" }
+---
+
+用途：在目录树中按名称、大小、时间、类型等条件搜索。
+
+语法：
+
+```bash
+find [起始路径] [条件] [动作]
+```
+
+常见用法：
+
+```bash
+# 名称匹配
+find . -type f -name '*.log'
+
+# 大小过滤（>100MB）
+find . -type f -size +100M
+
+# 最近一天修改
+find . -type f -mtime -1
+
+# 与 xargs 配合，可靠处理空格
+find . -type f -name '*.txt' -print0 | xargs -0 wc -l
+```
+
+import Danger from '../../components/Danger.astro'
+
+<Danger title="谨慎使用 -delete">
+删除前先以 `-print` 或 `echo` 方式验证匹配结果，再去掉 `-print`/`echo` 改为 `-delete` 或配合 `xargs rm` 执行。
+</Danger>

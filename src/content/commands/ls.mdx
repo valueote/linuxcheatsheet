@@ -1,0 +1,46 @@
+---
+title: ls
+description: 列出目录内容（文件与子目录）。
+tags: [文件, 列表]
+flags:
+  - { name: "-l", description: "长列表格式，显示权限/所有者/大小/时间" }
+  - { name: "-a", description: "包含以 . 开头的隐藏文件" }
+  - { name: "-h", description: "人类可读的文件大小（配合 -l）" }
+  - { name: "-S", description: "按大小排序" }
+  - { name: "-t", description: "按修改时间排序" }
+examples:
+  - { title: "长列表含隐藏并人类可读大小", command: "ls -alh" }
+  - { title: "按修改时间降序", command: "ls -lt" }
+  - { title: "只看目录", command: "ls -d */" }
+---
+
+用途：查看当前或指定目录的文件与子目录。
+
+语法：
+
+```bash
+ls [选项] [路径]
+```
+
+常用选项：
+
+```text
+-l   长列表格式
+-a   显示隐藏文件
+-h   人类可读大小（与 -l 一起）
+-S   按大小排序
+-t   按时间排序
+```
+
+常见用法：
+
+```bash
+# 长列表 + 隐藏 + 人类可读大小
+ls -alh
+
+# 按修改时间降序
+ls -lt
+
+# 只显示目录
+ls -d */
+```

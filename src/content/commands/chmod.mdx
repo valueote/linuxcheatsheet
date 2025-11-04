@@ -1,0 +1,41 @@
+---
+title: chmod
+description: 修改文件或目录的权限（读/写/执行）。
+tags: [权限, 文件]
+flags:
+  - { name: "-R", description: "递归修改目录内所有项" }
+  - { name: "-v", description: "显示修改的条目" }
+  - { name: "-c", description: "仅当发生更改时才输出" }
+examples:
+  - { title: "为所有者添加执行权限", command: "chmod u+x script.sh" }
+  - { title: "设置 644（rw-r--r--）", command: "chmod 644 file.txt" }
+  - { title: "递归设置目录 755 和文件 644（示例）", command: "find . -type d -exec chmod 755 {} +; find . -type f -exec chmod 644 {} +" }
+---
+
+用途：设置访问权限。可使用符号法（u/g/o/a + r/w/x +/-）或数字法（如 644, 755）。
+
+语法：
+
+```bash
+chmod [选项] 模式 文件...
+```
+
+常见用法：
+
+```bash
+# 符号法：给所有者添加执行
+chmod u+x script.sh
+
+# 数字法：rw-r--r--
+chmod 644 file.txt
+
+# 批量：目录 755，文件 644
+find . -type d -exec chmod 755 {} +
+find . -type f -exec chmod 644 {} +
+```
+
+import Danger from '../../components/Danger.astro'
+
+<Danger title="递归修改请先小范围验证">
+`chmod -R` 作用范围很大，建议先在小目录试运行或用 `-c/-v` 观察，再推广到全目录。
+</Danger>

@@ -1,0 +1,23 @@
+{
+  "name": "linux-cheatsheet",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^4.0.0",
+    "@astrojs/mdx": "^3.0.0",
+    "@astrojs/tailwind": "^5.0.0",
+    
+    "flexsearch": "^0.7.31",
+    "lenis": "^1.0.34",
+    "tailwindcss": "^3.4.14",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}

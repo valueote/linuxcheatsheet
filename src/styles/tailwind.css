@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Mono Carbon (light) */
+    --bg: 248 248 248; /* #f8f8f8 */
+    --fg: 23 23 23; /* #171717 */
+    --fg-muted: 100 116 139; /* slate-500 */
+    --brand: 23 23 23; /* neutral emphasis */
+
+    /* Motion tokens */
+    --dur-fast: 160ms;
+    --dur-base: 220ms;
+    --dur-slow: 420ms;
+    --ease-smooth: cubic-bezier(0.22,1,0.36,1);
+  }
+
+  [data-theme="dark"] {
+    /* Mono Carbon (dark) */
+    --bg: 12 12 14;
+    --fg: 236 236 240;
+    --fg-muted: 148 163 184;
+    --brand: 255 255 255; /* neutral emphasis */
+  }
+
+  html {
+    color-scheme: light dark;
+    background-color: rgb(var(--bg));
+  }
+
+  body {
+    @apply text-fg bg-bg antialiased selection:bg-brand/20 selection:text-fg font-sans;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/5 dark:bg-white/5 backdrop-blur-md border border-white/10 shadow-soft;
+  }
+
+  .card-hover {
+    @apply transform-gpu will-change-transform transition duration-200 ease-smooth hover:-translate-y-0.5 hover:shadow-elevated active:translate-y-0 active:scale-[.995];
+  }
+
+  /* Reveal on enter */
+  .reveal { @apply opacity-0 translate-y-1 transition duration-500 ease-smooth; }
+  .reveal.show { @apply opacity-100 translate-y-0; }
+
+  .interactive { @apply transition duration-200 ease-smooth; }
+}

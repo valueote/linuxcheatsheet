@@ -1,0 +1,44 @@
+---
+title: rm
+description: 删除文件或目录（不可逆）。
+tags: [文件, 删除, 危险]
+danger: true
+flags:
+  - { name: "-r", description: "递归删除目录及内容" }
+  - { name: "-f", description: "强制删除（不提示）" }
+  - { name: "-i", description: "交互式确认" }
+  - { name: "-v", description: "显示被删除的条目" }
+examples:
+  - { title: "安全：删除前确认", command: "rm -i file.txt" }
+  - { title: "删除空目录（推荐用 rmdir）", command: "rm -d empty_dir" }
+  - { title: "递归删除目录（危险，示例仅演示）", command: "rm -r ./tmp", danger: true }
+---
+
+import Danger from '../../components/Danger.astro'
+import CopyButton from '../../components/CopyButton.astro'
+
+用途：删除文件或目录，删除操作不可逆，务必谨慎。
+
+语法：
+
+```bash
+rm [选项] 路径...
+```
+
+<Danger>
+强烈建议先用 `ls` 或 `find -print` 预览目标，再执行删除。
+避免直接使用 `-f`；涉及目录时慎用 `-r`。
+</Danger>
+
+常见用法：
+
+```bash
+# 删除前进行确认
+rm -i file.txt
+
+# 删除空目录（也可用 rmdir）
+rm -d empty_dir
+
+# 递归删除目录（危险，先确认路径再执行）
+rm -r ./tmp
+```

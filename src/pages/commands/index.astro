@@ -1,0 +1,15 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { getCollection } from 'astro:content'
+import Card from '@/components/Card.astro'
+const commands = await getCollection('commands')
+  .then(list => list.sort((a,b)=> a.slug.localeCompare(b.slug)))
+---
+<BaseLayout title="命令索引 - Linux Cheatsheet">
+  <h1 class="text-2xl font-semibold mb-6">命令索引</h1>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {commands.map((c)=> (
+      <Card title={c.data.title} description={c.data.description} href={`/commands/${c.slug}`} transitionName={`card-${c.slug}`} tags={(c.data as any).tags} />
+    ))}
+  </div>
+</BaseLayout>

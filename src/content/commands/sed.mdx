@@ -1,0 +1,48 @@
+---
+title: sed
+description: 流编辑器，用于替换、删除、插入文本等。
+tags: [文本, 编辑]
+flags:
+  - { name: "-n", description: "抑制默认输出，仅输出匹配/指定结果" }
+  - { name: "-E", description: "使用扩展正则（有些系统为 -r）" }
+  - { name: "-i", description: "就地修改文件（危险）" }
+examples:
+  - { title: "替换一行中的第一个匹配", command: "sed 's/old/new/' file.txt" }
+  - { title: "替换所有匹配（全局）", command: "sed 's/old/new/g' file.txt" }
+  - { title: "删除包含 foo 的行", command: "sed '/foo/d' file.txt" }
+  - { title: "显示第 10 到 20 行", command: "sed -n '10,20p' file.txt" }
+  - { title: "就地替换（先备份 .bak）", command: "sed -i.bak 's/old/new/g' file.txt", danger: true }
+---
+
+用途：对文本流进行快速替换、删除、截取等操作。
+
+语法：
+
+```bash
+sed [选项] '脚本' [文件...]
+```
+
+常见用法：
+
+```bash
+# 替换一处
+sed 's/old/new/' file.txt
+
+# 全局替换
+sed 's/old/new/g' file.txt
+
+# 删除包含关键字的行
+sed '/foo/d' file.txt
+
+# 显示指定范围
+sed -n '10,20p' file.txt
+
+# 就地替换，先备份 .bak
+sed -i.bak 's/old/new/g' file.txt
+```
+
+import Danger from '../../components/Danger.astro'
+
+<Danger title="谨慎使用 -i 就地修改">
+`-i` 会直接改写文件，建议加备份后缀（如 `-i.bak`），或先不带 `-i` 观察输出是否正确。
+</Danger>

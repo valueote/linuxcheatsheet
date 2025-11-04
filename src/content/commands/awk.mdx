@@ -1,0 +1,32 @@
+---
+title: awk
+description: 面向列的文本处理工具，可做筛选、格式化与聚合。
+tags: [文本, 处理]
+flags:
+  - { name: "-F", description: "设置输入分隔符（默认空白）" }
+examples:
+  - { title: "按 , 分隔，打印第 1 列", command: "awk -F, '{print $1}' data.csv" }
+  - { title: "只打印匹配 error 的行的第 2 列", command: "awk '/error/ {print $2}' app.log" }
+  - { title: "按第 3 列求和", command: "awk '{sum+=$3} END {print sum}' data.txt" }
+---
+
+用途：按列读取文本并进行筛选、计算与格式化输出。
+
+语法：
+
+```bash
+awk [选项] '模式 { 动作 }' [文件...]
+```
+
+常见用法：
+
+```bash
+# CSV 第 1 列
+awk -F, '{print $1}' data.csv
+
+# 匹配关键字再取列
+awk '/error/ {print $2}' app.log
+
+# 聚合求和
+awk '{sum+=$3} END {print sum}' data.txt
+```

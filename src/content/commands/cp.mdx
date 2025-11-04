@@ -1,0 +1,52 @@
+---
+title: cp
+description: 复制文件或目录。
+tags: [文件, 复制]
+flags:
+  - { name: "-r", description: "递归复制目录内容" }
+  - { name: "-a", description: "归档模式，尽量保留属性（等价于 -dr --preserve=all）" }
+  - { name: "-i", description: "覆盖前交互式确认" }
+  - { name: "-n", description: "不覆盖已存在的文件" }
+  - { name: "-u", description: "仅在源比目标新时才复制" }
+  - { name: "-v", description: "输出处理的文件名" }
+examples:
+  - { title: "复制单个文件", command: "cp src.txt dest.txt" }
+  - { title: "递归复制目录", command: "cp -r src_dir dest_dir/" }
+  - { title: "保留时间/权限等属性", command: "cp -a src_dir dest_dir/" }
+  - { title: "覆盖前确认", command: "cp -i src.txt dest.txt" }
+  - { title: "不覆盖已存在的目标", command: "cp -n src.txt dest.txt" }
+---
+
+用途：复制文件到新位置，或复制整个目录。
+
+语法：
+
+```bash
+cp [选项] 源 目标
+cp [选项] 源... 目录/
+```
+
+常见用法：
+
+```bash
+# 复制文件
+cp src.txt dest.txt
+
+# 递归复制目录
+cp -r src_dir dest_dir/
+
+# 保留权限/时间等属性
+cp -a src_dir dest_dir/
+
+# 覆盖前确认（更安全）
+cp -i src.txt dest.txt
+
+# 不覆盖已存在的文件
+cp -n src.txt dest.txt
+```
+
+import Danger from '../../components/Danger.astro'
+
+<Danger title="注意覆盖">
+复制时若不加 `-i` 或 `-n`，将直接覆盖目标文件。建议默认加 `-i` 或在操作前先备份。
+</Danger>

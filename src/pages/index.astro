@@ -1,0 +1,30 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Card from '@/components/Card.astro'
+import type { CollectionEntry } from 'astro:content'
+import { getCollection } from 'astro:content'
+
+const commands = await getCollection('commands')
+  .then(list => list.sort((a,b)=> a.slug.localeCompare(b.slug)))
+const allTags = Array.from(new Set(commands.flatMap((c)=> (c.data as any).tags ?? []))).sort()
+---
+<BaseLayout title="Linux Cheatsheet">
+  <section class="text-center space-y-6">
+    <h1 class="text-3xl md:text-5xl font-bold tracking-tight">哪条命令？</h1>
+    <p class="text-fg-muted">搜索或从下方选择一个常用命令</p>
+    <form action="/" method="GET" role="search" class="mx-auto max-w-xl flex flex-col sm:flex-row gap-2" autocomplete="off">
+      <input name="q" placeholder="输入命令，如 grep、sed" class="flex-1 glass rounded-xl px-4 py-3 outline-none focus:ring-2 ring-black/20 dark:ring-white/25 interactive" />
+      <select id="tag-filter" class="glass rounded-xl px-3 py-3 text-sm outline-none border border-white/10">
+        <option value="">全部标签</option>
+        {allTags.map((t)=> (<option value={t}>{t}</option>))}
+      </select>
+    </form>
+  </section>
+
+  <section id="cards" class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {commands.map((c)=> (
+      <Card title={c.data.title} description={c.data.description} href={`/commands/${c.slug}`} transitionName={`card-${c.slug}`} tags={(c.data as any).tags} />
+    ))}
+  </section>
+  <script type="module" src="/src/scripts/homeFilter.client.ts"></script>
+</BaseLayout>

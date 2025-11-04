@@ -1,0 +1,40 @@
+---
+title: chown
+description: 修改文件或目录的所有者与所属组。
+tags: [权限, 文件]
+flags:
+  - { name: "-R", description: "递归修改目录内所有项" }
+  - { name: "-v", description: "显示修改的条目" }
+  - { name: "-c", description: "仅当发生更改时才输出" }
+examples:
+  - { title: "修改所有者为 alice", command: "chown alice file.txt" }
+  - { title: "修改所有者和组", command: "chown alice:dev file.txt" }
+  - { title: "递归修改目录", command: "chown -R alice:dev project/" }
+---
+
+用途：变更文件或目录的属主和属组。
+
+语法：
+
+```bash
+chown [选项] [所有者][:[组]] 文件...
+```
+
+常见用法：
+
+```bash
+# 修改所有者
+chown alice file.txt
+
+# 修改所有者与组
+chown alice:dev file.txt
+
+# 递归修改目录
+chown -R alice:dev project/
+```
+
+import Danger from '../../components/Danger.astro'
+
+<Danger title="谨慎递归">
+`chown -R` 会影响整个目录树，可能导致权限问题或服务异常。建议先在单个文件/小范围验证。
+</Danger>

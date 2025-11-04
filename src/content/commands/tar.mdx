@@ -1,0 +1,49 @@
+---
+title: tar
+description: 打包与解包归档（常配合 gzip/bzip2/xz 压缩）。
+tags: [归档, 压缩]
+flags:
+  - { name: "-c", description: "创建归档" }
+  - { name: "-x", description: "解包归档" }
+  - { name: "-t", description: "列出归档内容" }
+  - { name: "-f", description: "指定归档文件名（必须紧跟其后）" }
+  - { name: "-v", description: "显示详细过程" }
+  - { name: "-z", description: "使用 gzip（.tar.gz / .tgz）" }
+  - { name: "-j", description: "使用 bzip2（.tar.bz2）" }
+  - { name: "-J", description: "使用 xz（.tar.xz）" }
+examples:
+  - { title: "创建 .tar.gz 归档", command: "tar -czf archive.tar.gz dir/" }
+  - { title: "解压到当前目录", command: "tar -xzf archive.tar.gz" }
+  - { title: "列出归档内容", command: "tar -tzf archive.tar.gz" }
+  - { title: "解压到指定目录", command: "tar -xzf archive.tar.gz -C /tmp/output" }
+---
+
+用途：将多个文件/目录打包为一个归档文件，或从归档中解包。
+
+语法：
+
+```bash
+tar -c|x|t [选项] -f 文件.tar[.gz|.bz2|.xz] [路径...]
+```
+
+常见用法：
+
+```bash
+# 创建 gzip 压缩的归档
+tar -czf archive.tar.gz dir/
+
+# 解压
+tar -xzf archive.tar.gz
+
+# 查看归档内容
+tar -tzf archive.tar.gz
+
+# 解压到指定目录
+tar -xzf archive.tar.gz -C /tmp/output
+```
+
+import Danger from '../../components/Danger.astro'
+
+<Danger title="解压前先查看">
+解压到当前目录可能覆盖同名文件。建议先用 `-t` 列出内容，或解压到独立目录（`-C <dir>`）。
+</Danger>
