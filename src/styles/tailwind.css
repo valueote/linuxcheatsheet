@@ -23,6 +23,7 @@
     --fg: 236 236 240;
     --fg-muted: 148 163 184;
     --brand: 255 255 255; /* neutral emphasis */
+    color-scheme: dark;
   }
 
   html {
@@ -49,4 +50,20 @@
   .reveal.show { @apply opacity-100 translate-y-0; }
 
   .interactive { @apply transition duration-200 ease-smooth; }
+
+  /* Themed native select to follow current color scheme */
+  .theme-select {
+    color: rgb(var(--fg));
+    background-color: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right .6rem center;
+    background-size: 1rem 1rem;
+  }
+  .theme-select option { color: rgb(var(--fg)); background: rgb(var(--bg)); }
+
+  /* Custom dropdown menu for tag filter */
+  .shadow-elevated { box-shadow: 0 20px 40px -20px rgba(0,0,0,0.45); }
+  #tag-menu { backdrop-filter: blur(10px); }
+  #tag-menu .menu-item[aria-checked="true"] { @apply bg-white/10; }
 }

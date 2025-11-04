@@ -1,6 +1,8 @@
 const form = document.querySelector('form[role="search"]') as HTMLFormElement | null
 const input = form?.querySelector('input[name="q"]') as HTMLInputElement | null
-const tagSelect = document.getElementById('tag-filter') as HTMLSelectElement | null
+const tagBtn = document.getElementById('tag-filter-btn') as HTMLButtonElement | null
+const tagMenu = document.getElementById('tag-menu') as HTMLDivElement | null
+const tagLabel = document.getElementById('tag-filter-label') as HTMLSpanElement | null
 const grid = document.getElementById('cards') as HTMLElement | null
 
 if (form && input && grid) {
@@ -44,8 +46,52 @@ if (form && input && grid) {
     }
   })
 
-  input.addEventListener('input', () => apply(input.value, tagSelect?.value || ''))
-  tagSelect?.addEventListener('change', () => apply(input.value, tagSelect?.value || ''))
+  input.addEventListener('input', () => apply(input.value, tagBtn?.dataset.value || ''))
+
+  // Tag dropdown interactions
+  function openMenu() {
+    if (!tagMenu || !tagBtn) return
+    // Ensure menu width matches the button
+    tagMenu.style.minWidth = `${tagBtn.offsetWidth}px`
+    tagMenu.classList.remove('hidden')
+    tagBtn.setAttribute('aria-expanded', 'true')
+  }
+  function closeMenu() {
+    if (!tagMenu || !tagBtn) return
+    tagMenu.classList.add('hidden')
+    tagBtn.setAttribute('aria-expanded', 'false')
+  }
+  function toggleMenu() {
+    if (!tagMenu) return
+    tagMenu.classList.contains('hidden') ? openMenu() : closeMenu()
+  }
+
+  tagBtn?.addEventListener('click', (e) => { e.preventDefault(); toggleMenu() })
+
+  document.addEventListener('pointerdown', (e) => {
+    const t = e.target as HTMLElement
+    if (!t) return
+    if (t.closest('#tag-menu') || t.closest('#tag-filter-btn')) return
+    closeMenu()
+  })
+
+  tagMenu?.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('[data-tag]') as HTMLButtonElement | null
+    if (!btn) return
+    const value = btn.getAttribute('data-tag') || ''
+    if (tagBtn) tagBtn.dataset.value = value
+    if (tagLabel) tagLabel.textContent = value || '全部标签'
+    // update aria-checked
+    tagMenu.querySelectorAll('[role="menuitemradio"]').forEach((el) => el.setAttribute('aria-checked', String((el as HTMLElement).getAttribute('data-tag') === value)))
+    apply(input.value, value)
+    closeMenu()
+  })
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (!tagMenu?.classList.contains('hidden')) closeMenu()
+    }
+  })
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       input.value = ''
@@ -58,6 +104,9 @@ if (form && input && grid) {
   const initialQ = params.get('q') || ''
   const initialTag = params.get('tag') || ''
   if (initialQ) input.value = initialQ
-  if (initialTag && tagSelect) tagSelect.value = initialTag
-  apply(input.value, tagSelect?.value || '')
+  if (tagBtn) tagBtn.dataset.value = initialTag
+  if (tagLabel) tagLabel.textContent = initialTag || '全部标签'
+  // update menu aria-checked initial state
+  tagMenu?.querySelectorAll('[role="menuitemradio"]').forEach((el) => el.setAttribute('aria-checked', String((el as HTMLElement).getAttribute('data-tag') === (initialTag || ''))))
+  apply(input.value, initialTag)
 }

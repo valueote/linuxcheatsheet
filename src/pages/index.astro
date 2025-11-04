@@ -14,10 +14,18 @@ const allTags = Array.from(new Set(commands.flatMap((c)=> (c.data as any).tags ?
     <p class="text-fg-muted">搜索或从下方选择一个常用命令</p>
     <form action="/" method="GET" role="search" class="mx-auto max-w-xl flex flex-col sm:flex-row gap-2" autocomplete="off">
       <input name="q" placeholder="输入命令，如 grep、sed" class="flex-1 glass rounded-xl px-4 py-3 outline-none focus:ring-2 ring-black/20 dark:ring-white/25 interactive" />
-      <select id="tag-filter" class="glass rounded-xl px-3 py-3 text-sm outline-none border border-white/10">
-        <option value="">全部标签</option>
-        {allTags.map((t)=> (<option value={t}>{t}</option>))}
-      </select>
+      <div class="relative shrink-0">
+        <button id="tag-filter-btn" type="button" class="glass rounded-xl px-3 py-3 text-sm text-fg outline-none border border-white/10 interactive flex items-center gap-1 min-w-[8.5rem] justify-between" aria-haspopup="menu" aria-expanded="false">
+          <span id="tag-filter-label">全部标签</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" class="opacity-70"><polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div id="tag-menu" class="hidden absolute left-0 z-20 mt-1 min-w-[8.5rem] rounded-xl border border-white/10 glass shadow-elevated py-1" role="menu" aria-labelledby="tag-filter-btn">
+          <button class="menu-item w-full text-left px-3 py-2 text-sm hover:bg-white/5" data-tag="" role="menuitemradio" aria-checked="true">全部标签</button>
+          {allTags.map((t) => (
+            <button class="menu-item w-full text-left px-3 py-2 text-sm hover:bg-white/5" data-tag={t} role="menuitemradio" aria-checked="false">{t}</button>
+          ))}
+        </div>
+      </div>
     </form>
   </section>
 
